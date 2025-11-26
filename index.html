@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASCII Art Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>ASCII Configurator</h1>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Upload Image</label>
+        <div class="file-upload-wrapper">
+          <input type="file" id="imageInput" accept="image/*" class="file-input" />
+          <div class="file-upload-button">Choose File</div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label for="resolution" class="control-label">Resolution (Density)</label>
+          <span id="resolutionValue" class="value-display">128</span>
+        </div>
+        <input type="range" id="resolution" min="32" max="256" value="128" step="4" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label for="contrast" class="control-label">Contrast</label>
+          <span id="contrastValue" class="value-display">1.0</span>
+        </div>
+        <input type="range" id="contrast" min="0.5" max="3.0" value="1.0" step="0.1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label for="brightness" class="control-label">Brightness</label>
+          <span id="brightnessValue" class="value-display">1.0</span>
+        </div>
+        <input type="range" id="brightness" min="0.5" max="2.0" value="1.0" step="0.1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Aspect Ratio</label>
+        <select id="aspectRatio" class="select-input">
+          <option value="auto">Auto (Image)</option>
+          <option value="1:1">1:1 (Square)</option>
+          <option value="4:3">4:3 (Standard)</option>
+          <option value="16:9">16:9 (Widescreen)</option>
+          <option value="3:4">3:4 (Portrait)</option>
+          <option value="9:16">9:16 (Vertical)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Scale</label>
+          <span id="scaleValue" class="value-display">1.0</span>
+        </div>
+        <input type="range" id="scale" min="0.1" max="3.0" value="1.0" step="0.1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Rotation</label>
+          <span id="rotationValue" class="value-display">0°</span>
+        </div>
+        <input type="range" id="rotation" min="-180" max="180" value="0" step="1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Pan X</label>
+          <span id="offsetXValue" class="value-display">0</span>
+        </div>
+        <input type="range" id="offsetX" min="-100" max="100" value="0" step="1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Pan Y</label>
+          <span id="offsetYValue" class="value-display">0</span>
+        </div>
+        <input type="range" id="offsetY" min="-100" max="100" value="0" step="1" class="slider" />
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Color Mode</label>
+        </div>
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="colorMode" class="toggle-input">
+          <label for="colorMode" class="toggle-label">Enable Color</label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="label-row">
+          <label class="control-label">Invert</label>
+        </div>
+        <div class="toggle-wrapper">
+          <input type="checkbox" id="invert" class="toggle-input">
+          <label for="invert" class="toggle-label">Invert Colors</label>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="control-group">
+        <label class="control-label">Export</label>
+        <div class="button-group">
+          <button id="exportPng" class="btn btn-primary">Export PNG</button>
+          <button id="exportJpeg" class="btn btn-secondary">Export JPEG</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="canvas-container" id="canvasContainer">
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon-wrapper">
+            <img src="/upload_icon.svg" alt="Upload" class="upload-icon" />
+          </div>
+          <p class="upload-title">Upload Image</p>
+          <p class="upload-subtitle">Drag & drop or click to browse</p>
+        </div>
+        <canvas id="asciiCanvas"></canvas>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
