@@ -142,4 +142,59 @@ export function initViewportListeners(state) {
       elements.canvasContainer.style.cursor = 'default';
     }
   });
+
+  // Touch Handling (Pinch to Zoom + Pan)
+  let initialTouchDistance = 0;
+  let initialTouchCenter = { x: 0, y: 0 };
+  let initialScale = 1;
+  let initialPan = { x: 0, y: 0 };
+
+  function getTouchDistance(touches) {
+    return Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY
+    );
+  }
+
+  function getTouchCenter(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2,
+    };
+  }
+
+  elements.canvasContainer.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      initialTouchDistance = getTouchDistance(e.touches);
+      initialTouchCenter = getTouchCenter(e.touches);
+      initialScale = state.viewScale;
+      initialPan = { x: state.viewPanX, y: state.viewPanY };
+    }
+  }, { passive: false });
+
+  elements.canvasContainer.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault(); // Prevent browser zoom/scroll
+
+      const currentDistance = getTouchDistance(e.touches);
+      const currentCenter = getTouchCenter(e.touches);
+
+      // Zoom
+      const scaleRatio = currentDistance / initialTouchDistance;
+      const newScale = initialScale * scaleRatio;
+
+      if (newScale > 0.1 && newScale < 5) {
+        state.viewScale = newScale;
+      }
+
+      // Pan
+      const deltaX = currentCenter.x - initialTouchCenter.x;
+      const deltaY = currentCenter.y - initialTouchCenter.y;
+
+      state.viewPanX = initialPan.x + deltaX;
+      state.viewPanY = initialPan.y + deltaY;
+
+      updateViewport(state);
+    }
+  }, { passive: false });
 }

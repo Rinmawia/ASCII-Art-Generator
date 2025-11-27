@@ -658,7 +658,7 @@ canvas {
     border-left: none;
     border-right: none;
     border-bottom: none;
-    padding-bottom: env(safe-area-inset-bottom, 20px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
     background: rgba(20, 20, 23, 0.95);
     position: fixed;
     z-index: 50;

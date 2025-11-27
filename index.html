@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ASCII Art Configurator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -191,44 +191,44 @@
           <button class="zoom-btn" id="zoomOut" title="Zoom Out">-</button>
         </div>
       </div>
+    </main>
 
-      <div class="toolbar hidden" id="toolbar">
-        <button class="tool-btn mobile-only" id="btnAdjustment" title="Adjustments">
-          <img src="/adjustment.svg" alt="Adjustments" />
+    <div class="toolbar hidden" id="toolbar">
+      <button class="tool-btn mobile-only" id="btnAdjustment" title="Adjustments">
+        <img src="/adjustment.svg" alt="Adjustments" />
+      </button>
+
+      <button class="tool-btn active desktop-only" id="toolCursor" title="Cursor">
+        <img src="/cursor.svg" alt="Cursor" />
+      </button>
+      <button class="tool-btn desktop-only" id="toolHand" title="Pan (Space + Drag)">
+        <img src="/hand.svg" alt="Hand" />
+      </button>
+
+      <div class="tool-separator desktop-only"></div>
+
+      <button class="tool-btn" id="btnUndo" title="Undo (Cmd+Z)">
+        <img src="/undo.svg" alt="Undo" />
+      </button>
+      <button class="tool-btn" id="btnRedo" title="Redo (Cmd+Shift+Z)">
+        <img src="/redo.svg" alt="Redo" />
+      </button>
+
+      <div class="tool-separator"></div>
+
+      <div class="dropdown">
+        <button class="tool-btn dropdown-trigger" id="btnExport" title="Export">
+          <span>Export</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg>
         </button>
-
-        <button class="tool-btn active desktop-only" id="toolCursor" title="Cursor">
-          <img src="/cursor.svg" alt="Cursor" />
-        </button>
-        <button class="tool-btn desktop-only" id="toolHand" title="Pan (Space + Drag)">
-          <img src="/hand.svg" alt="Hand" />
-        </button>
-
-        <div class="tool-separator desktop-only"></div>
-
-        <button class="tool-btn" id="btnUndo" title="Undo (Cmd+Z)">
-          <img src="/undo.svg" alt="Undo" />
-        </button>
-        <button class="tool-btn" id="btnRedo" title="Redo (Cmd+Shift+Z)">
-          <img src="/redo.svg" alt="Redo" />
-        </button>
-
-        <div class="tool-separator"></div>
-
-        <div class="dropdown">
-          <button class="tool-btn dropdown-trigger" id="btnExport" title="Export">
-            <span>Export</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"></path>
-            </svg>
-          </button>
-          <div class="dropdown-menu hidden" id="exportMenu">
-            <button class="dropdown-item" id="exportPng">PNG</button>
-            <button class="dropdown-item" id="exportJpeg">JPEG</button>
-          </div>
+        <div class="dropdown-menu hidden" id="exportMenu">
+          <button class="dropdown-item" id="exportPng">PNG</button>
+          <button class="dropdown-item" id="exportJpeg">JPEG</button>
         </div>
       </div>
-    </main>
+    </div>
   </div>
   <div id="toast" class="toast hidden">Undo: Contrast</div>
   <input type="file" id="imageInput" accept="image/*" style="display: none;" />
