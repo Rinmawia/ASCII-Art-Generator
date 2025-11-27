@@ -19,6 +19,15 @@
 <body>
   <div id="app">
     <aside class="sidebar hidden" id="sidebar">
+      <div class="drawer-handle">
+        <div class="drawer-bar"></div>
+        <button class="drawer-close" id="drawerClose" title="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
       <div class="tab-nav">
         <button class="tab-btn active" id="tabBtnAdjustments">Adjustments</button>
         <button class="tab-btn" id="tabBtnTransform">Transform</button>
@@ -161,18 +170,20 @@
 
       <canvas id="backdropCanvas" class="backdrop-canvas"></canvas>
 
+      <div class="upload-placeholder" id="uploadPlaceholder">
+        <div class="upload-icon-wrapper">
+          <img src="/upload_icon.svg" alt="Upload" class="upload-icon" />
+        </div>
+        <p class="upload-title">Upload Image</p>
+        <p class="upload-subtitle">Drag & drop or click to browse</p>
+      </div>
+
+      <div class="loader hidden" id="loader">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+      </div>
+
       <div class="canvas-container hidden" id="canvasContainer">
-        <div class="loader hidden" id="loader">
-          <div class="spinner"></div>
-          <p>Processing...</p>
-        </div>
-        <div class="upload-placeholder" id="uploadPlaceholder">
-          <div class="upload-icon-wrapper">
-            <img src="/upload_icon.svg" alt="Upload" class="upload-icon" />
-          </div>
-          <p class="upload-title">Upload Image</p>
-          <p class="upload-subtitle">Drag & drop or click to browse</p>
-        </div>
         <canvas id="asciiCanvas"></canvas>
 
         <div class="zoom-controls hidden" id="zoomControls">

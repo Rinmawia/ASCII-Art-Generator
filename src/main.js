@@ -12,17 +12,43 @@ elements.cancelBtn.addEventListener('click', resetApp);
 elements.imageInput.addEventListener('change', handleImageUpload);
 elements.placeholder.addEventListener('click', () => elements.imageInput.click());
 
-// Mobile Drawer
-elements.btnAdjustment.addEventListener('click', () => {
-  elements.sidebar.classList.toggle('open');
+// Mobile Drawer - ensure closed by default on mobile
+if (window.innerWidth <= 768) {
+  elements.sidebar.classList.remove('open');
+  console.log('Mobile detected, drawer closed by default');
+}
+
+elements.btnAdjustment.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = elements.sidebar.classList.toggle('open');
+  console.log('Drawer toggled, now open:', isOpen);
 });
 
-// Close drawer when clicking outside (on canvas)
-elements.canvasContainer.addEventListener('mousedown', (e) => {
-  if (window.innerWidth <= 768) {
+// Close button for drawer
+const drawerClose = document.getElementById('drawerClose');
+if (drawerClose) {
+  drawerClose.addEventListener('click', () => {
     elements.sidebar.classList.remove('open');
+    console.log('Drawer closed via close button');
+  });
+}
+
+// Close drawer when clicking/touching outside
+function closeDrawerOnOutsideClick(e) {
+  if (window.innerWidth <= 768 && elements.sidebar.classList.contains('open')) {
+    // Check if click is outside sidebar and not on the adjustment button
+    const clickedInsideSidebar = elements.sidebar.contains(e.target);
+    const clickedAdjustmentButton = elements.btnAdjustment.contains(e.target);
+
+    if (!clickedInsideSidebar && !clickedAdjustmentButton) {
+      elements.sidebar.classList.remove('open');
+    }
   }
-});
+}
+
+// Listen for both mouse and touch events
+document.addEventListener('click', closeDrawerOnOutsideClick);
+document.addEventListener('touchend', closeDrawerOnOutsideClick, { passive: true });
 
 // Tabs
 function switchTab(tabName) {
@@ -136,10 +162,18 @@ elements.zoomOut.addEventListener('click', () => {
   }
 });
 
-// Filename Editing
-elements.filenameText.addEventListener('dblclick', () => {
+// Filename Editing - single click
+elements.filenameText.addEventListener('click', () => {
   elements.filenameText.contentEditable = true;
   elements.filenameText.focus();
+
+  // Select all text for easy replacement
+  const range = document.createRange();
+  range.selectNodeContents(elements.filenameText);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
   elements.filenameDisplay.classList.add('editing');
 });
 
