@@ -34,8 +34,16 @@ I have built a premium, browser-based ASCII art configurator.
 - **PNG & JPEG**: Download high-resolution renders of your ASCII art.
 
 ## Technical Implementation
-- **Canvas API**: Used for both analyzing the source image pixel data and rendering the final ASCII text.
-- **Offscreen Canvas**: Used to resize and filter the image (contrast/brightness) before processing.
+- **Core**: Vanilla JavaScript (ES6 Modules) with Vite.
+- **Rendering**: HTML5 Canvas API for high-performance image processing.
+- **Styling**: CSS Variables, Glassmorphism, and Responsive Design.
+- **Architecture**: Modular codebase with separation of concerns:
+    - `state.js`: State management and History (Undo/Redo).
+    - `renderer.js`: Pure rendering logic.
+    - `viewport.js`: Pan/Zoom and Adaptive Fit logic.
+    - `ui.js`: DOM manipulation and UI updates.
+    - `utils.js`: Helper functions.
+    - `main.js`: Application entry point and event binding. (contrast/brightness) before processing.
 - **Responsive Design**: The layout adapts to the screen size, with a glassmorphism sidebar.
 
 ## How to Run

@@ -1,0 +1,76 @@
+/* Zoom Controls */
+.zoom-controls {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 50;
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(20, 20, 23, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--sidebar-border);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.zoom-btn:active {
+    transform: translateY(0);
+}
+
+/* Filename Editable */
+.filename-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.filename-display:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.filename-display.editing {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-color);
+    cursor: text;
+}
+
+#filenameText {
+    outline: none;
+    min-width: 50px;
+}
+
+@media (max-width: 768px) {
+    .zoom-controls {
+        bottom: 5rem;
+        /* Above toolbar */
+        right: 1rem;
+        display: none !important;
+    }
+}

@@ -12,117 +12,131 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="./src/toolbar.css">
+  <link rel="stylesheet" href="./src/zoom.css">
 </head>
 
 <body>
   <div id="app">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h1>ASCII Configurator</h1>
+    <aside class="sidebar hidden" id="sidebar">
+      <div class="tab-nav">
+        <button class="tab-btn active" id="tabBtnAdjustments">Adjustments</button>
+        <button class="tab-btn" id="tabBtnTransform">Transform</button>
       </div>
 
-      <div class="control-group">
-        <div class="label-row">
-          <label for="resolution" class="control-label">Resolution (Density)</label>
-          <span id="resolutionValue" class="value-display">128</span>
-        </div>
-        <input type="range" id="resolution" min="32" max="256" value="128" step="4" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label for="contrast" class="control-label">Contrast</label>
-          <span id="contrastValue" class="value-display">1.0</span>
-        </div>
-        <input type="range" id="contrast" min="0.5" max="3.0" value="1.0" step="0.1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label for="brightness" class="control-label">Brightness</label>
-          <span id="brightnessValue" class="value-display">1.0</span>
-        </div>
-        <input type="range" id="brightness" min="0.5" max="2.0" value="1.0" step="0.1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <label class="control-label">Aspect Ratio</label>
-        <select id="aspectRatio" class="select-input">
-          <option value="auto">Auto (Image)</option>
-          <option value="1:1">1:1 (Square)</option>
-          <option value="4:3">4:3 (Standard)</option>
-          <option value="16:9">16:9 (Widescreen)</option>
-          <option value="3:4">3:4 (Portrait)</option>
-          <option value="9:16">9:16 (Vertical)</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Scale</label>
-          <span id="scaleValue" class="value-display">1.0</span>
-        </div>
-        <input type="range" id="scale" min="0.1" max="3.0" value="1.0" step="0.1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Rotation</label>
-          <span id="rotationValue" class="value-display">0°</span>
-        </div>
-        <input type="range" id="rotation" min="-180" max="180" value="0" step="1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Pan X</label>
-          <span id="offsetXValue" class="value-display">0</span>
-        </div>
-        <input type="range" id="offsetX" min="-100" max="100" value="0" step="1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Pan Y</label>
-          <span id="offsetYValue" class="value-display">0</span>
-        </div>
-        <input type="range" id="offsetY" min="-100" max="100" value="0" step="1" class="slider" />
-      </div>
-
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Color Mode</label>
-        </div>
-        <div class="toggle-wrapper">
-          <input type="checkbox" id="colorMode" class="toggle-input">
-          <label for="colorMode" class="toggle-label">Enable Color</label>
+      <div id="tabAdjustments" class="tab-content">
+        <div class="control-group">
+          <div class="label-row">
+            <label for="resolution" class="control-label">Resolution (Density)</label>
+            <span id="resolutionValue" class="value-display">128</span>
+          </div>
+          <input type="range" id="resolution" min="32" max="256" value="128" step="4" class="slider" />
         </div>
 
-        <div id="colorControls" class="sub-controls hidden">
+        <div class="control-group">
+          <div class="label-row">
+            <label for="contrast" class="control-label">Contrast</label>
+            <span id="contrastValue" class="value-display">1.0</span>
+          </div>
+          <input type="range" id="contrast" min="0.5" max="3.0" value="1.0" step="0.1" class="slider" />
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label for="brightness" class="control-label">Brightness</label>
+            <span id="brightnessValue" class="value-display">1.0</span>
+          </div>
+          <input type="range" id="brightness" min="0.5" max="2.0" value="1.0" step="0.1" class="slider" />
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Aspect Ratio</label>
+          <select id="aspectRatio" class="select-input">
+            <option value="auto">Auto (Image)</option>
+            <option value="1:1">1:1 (Square)</option>
+            <option value="4:3">4:3 (Standard)</option>
+            <option value="16:9">16:9 (Widescreen)</option>
+            <option value="3:4">3:4 (Portrait)</option>
+            <option value="9:16">9:16 (Vertical)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Color Mode</label>
+          </div>
           <div class="toggle-wrapper">
-            <input type="checkbox" id="customTint" class="toggle-input">
-            <label for="customTint" class="toggle-label">Custom Tint</label>
+            <input type="checkbox" id="colorMode" class="toggle-input">
+            <label for="colorMode" class="toggle-label">Enable Color</label>
           </div>
-          <div id="tintPickers" class="hidden">
-            <div class="label-row mt-2">
-              <label class="control-label">Highlights</label>
-              <input type="color" id="highlightColor" value="#ffffff" class="color-input">
+
+          <div id="colorControls" class="sub-controls hidden">
+            <div class="toggle-wrapper">
+              <input type="checkbox" id="customTint" class="toggle-input">
+              <label for="customTint" class="toggle-label">Custom Tint</label>
             </div>
-            <div class="label-row mt-2">
-              <label class="control-label">Shadows</label>
-              <input type="color" id="shadowColor" value="#000000" class="color-input">
+            <div id="tintPickers" class="hidden">
+              <div class="label-row mt-2">
+                <label class="control-label">Highlights</label>
+                <input type="color" id="highlightColor" value="#ffffff" class="color-input">
+              </div>
+              <div class="label-row mt-2">
+                <label class="control-label">Shadows</label>
+                <input type="color" id="shadowColor" value="#000000" class="color-input">
+              </div>
             </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Background</label>
+            <input type="color" id="backgroundColor" value="#000000" class="color-input">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Invert</label>
+          </div>
+          <div class="toggle-wrapper">
+            <input type="checkbox" id="invert" class="toggle-input">
+            <label for="invert" class="toggle-label">Invert Colors</label>
           </div>
         </div>
       </div>
 
-      <div class="control-group">
-        <div class="label-row">
-          <label class="control-label">Invert</label>
+      <div id="tabTransform" class="tab-content hidden">
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Scale</label>
+            <span id="scaleValue" class="value-display">1.0</span>
+          </div>
+          <input type="range" id="scale" min="0.1" max="3.0" value="1.0" step="0.1" class="slider" />
         </div>
-        <div class="toggle-wrapper">
-          <input type="checkbox" id="invert" class="toggle-input">
-          <label for="invert" class="toggle-label">Invert Colors</label>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Rotation</label>
+            <span id="rotationValue" class="value-display">0°</span>
+          </div>
+          <input type="range" id="rotation" min="-180" max="180" value="0" step="1" class="slider" />
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Pan X</label>
+            <span id="offsetXValue" class="value-display">0</span>
+          </div>
+          <input type="range" id="offsetX" min="-100" max="100" value="0" step="1" class="slider" />
+        </div>
+
+        <div class="control-group">
+          <div class="label-row">
+            <label class="control-label">Pan Y</label>
+            <span id="offsetYValue" class="value-display">0</span>
+          </div>
+          <input type="range" id="offsetY" min="-100" max="100" value="0" step="1" class="slider" />
         </div>
       </div>
 
@@ -134,22 +148,20 @@
     </aside>
 
     <main class="main-content">
-      <nav class="navbar">
+      <nav class="navbar hidden" id="navbar">
         <div class="nav-left">
-          <button id="resetBtn" class="btn-icon hidden" title="Remove Image & Reset">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M18 6L6 18M6 6l12 12"></path>
-            </svg>
-          </button>
-          <div class="nav-brand">ASCII Art</div>
+          <div class="filename-display" id="filenameDisplay" title="Double click to rename">
+            <span id="filenameText" contenteditable="false">Untitled</span>
+          </div>
         </div>
-        <div class="nav-actions hidden" id="navActions">
-          <button id="exportPng" class="btn btn-primary btn-sm">Export PNG</button>
-          <button id="exportJpeg" class="btn btn-secondary btn-sm">Export JPEG</button>
+        <div class="nav-right">
+          <button id="cancelBtn" class="btn btn-danger">Cancel</button>
         </div>
       </nav>
 
-      <div class="canvas-container" id="canvasContainer">
+      <canvas id="backdropCanvas" class="backdrop-canvas"></canvas>
+
+      <div class="canvas-container hidden" id="canvasContainer">
         <div class="loader hidden" id="loader">
           <div class="spinner"></div>
           <p>Processing...</p>
@@ -162,11 +174,54 @@
           <p class="upload-subtitle">Drag & drop or click to browse</p>
         </div>
         <canvas id="asciiCanvas"></canvas>
+
+        <div class="zoom-controls hidden" id="zoomControls">
+          <button class="zoom-btn" id="zoomIn" title="Zoom In">+</button>
+          <button class="zoom-btn" id="zoomOut" title="Zoom Out">-</button>
+        </div>
+      </div>
+
+      <div class="toolbar hidden" id="toolbar">
+        <button class="tool-btn mobile-only" id="btnAdjustment" title="Adjustments">
+          <img src="/adjustment.svg" alt="Adjustments" />
+        </button>
+
+        <button class="tool-btn active desktop-only" id="toolCursor" title="Cursor">
+          <img src="/cursor.svg" alt="Cursor" />
+        </button>
+        <button class="tool-btn desktop-only" id="toolHand" title="Pan (Space + Drag)">
+          <img src="/hand.svg" alt="Hand" />
+        </button>
+
+        <div class="tool-separator desktop-only"></div>
+
+        <button class="tool-btn" id="btnUndo" title="Undo (Cmd+Z)">
+          <img src="/undo.svg" alt="Undo" />
+        </button>
+        <button class="tool-btn" id="btnRedo" title="Redo (Cmd+Shift+Z)">
+          <img src="/redo.svg" alt="Redo" />
+        </button>
+
+        <div class="tool-separator"></div>
+
+        <div class="dropdown">
+          <button class="tool-btn dropdown-trigger" id="btnExport" title="Export">
+            <span>Export</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div class="dropdown-menu hidden" id="exportMenu">
+            <button class="dropdown-item" id="exportPng">PNG</button>
+            <button class="dropdown-item" id="exportJpeg">JPEG</button>
+          </div>
+        </div>
       </div>
     </main>
   </div>
   <div id="toast" class="toast hidden">Undo: Contrast</div>
   <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+  <script type="module" src="/src/backdrop.js"></script>
   <script type="module" src="/src/main.js"></script>
 </body>
 
