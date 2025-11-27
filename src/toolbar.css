@@ -19,10 +19,20 @@
 }
 
 @media (min-width: 769px) {
+
     /* Center toolbar relative to the working area (next to sidebar) */
     .sidebar:not(.hidden)~.toolbar {
         left: calc(50% + 160px);
         /* 50% + half of sidebar width (320px/2) */
+    }
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        bottom: 0;
+        height: 10rem;
+        align-items: start;
+        padding-top: 1rem;
     }
 }
 

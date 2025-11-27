@@ -648,9 +648,11 @@ canvas {
 
   /* Toolbar Mobile Adjustments */
   .toolbar {
+    position: fixed;
+    z-index: 50;
     width: 100%;
     border-radius: 0;
-    bottom: 0;
+    bottom: 100px;
     left: 0;
     transform: none;
     justify-content: space-around;
@@ -658,10 +660,7 @@ canvas {
     border-left: none;
     border-right: none;
     border-bottom: none;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
     background: rgba(20, 20, 23, 0.95);
-    position: fixed;
-    z-index: 50;
   }
 
   .upload-placeholder {

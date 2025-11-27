@@ -1,7 +1,8 @@
-import { elements, toggleLoader, updateUIValues, updateControlVisibility } from './ui.js';
+import { elements, toggleLoader, updateUIValues, updateControlVisibility, showToast } from './ui.js';
 import { state, initHistory, commitState, undo, redo, resetApp } from './state.js';
 import { render } from './renderer.js';
 import { initViewportListeners, fitCanvasToScreen, updateViewport } from './viewport.js';
+import { hideBackdrop } from './backdrop.js';
 
 // Initialize
 initHistory();
@@ -11,6 +12,60 @@ initViewportListeners(state);
 elements.cancelBtn.addEventListener('click', resetApp);
 elements.imageInput.addEventListener('change', handleImageUpload);
 elements.placeholder.addEventListener('click', () => elements.imageInput.click());
+
+async function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    showToast('Invalid file type. Please upload an image.', 'error');
+    return;
+  }
+
+  toggleLoader(true);
+
+  try {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        state.image = img;
+        state.filename = file.name.split('.')[0];
+
+        // Reset view settings
+        state.viewScale = 1;
+        state.viewPanX = 0;
+        state.viewPanY = 0;
+
+        updateUIValues(state);
+        updateControlVisibility(true);
+        render(state, elements.canvas, elements.ctx);
+        fitCanvasToScreen(state);
+
+        // Hide backdrop
+        hideBackdrop();
+
+        toggleLoader(false);
+        commitState();
+      };
+      img.onerror = () => {
+        toggleLoader(false);
+        showToast('Failed to load image.', 'error');
+      };
+      img.src = event.target.result;
+    };
+    reader.onerror = () => {
+      toggleLoader(false);
+      showToast('Error reading file.', 'error');
+    };
+    reader.readAsDataURL(file);
+  } catch (error) {
+    console.error('Upload error:', error);
+    toggleLoader(false);
+    showToast('An unexpected error occurred during upload.', 'error');
+  }
+}
 
 // Mobile Drawer - ensure closed by default on mobile
 if (window.innerWidth <= 768) {
@@ -216,44 +271,16 @@ elements.canvasContainer.addEventListener('drop', (e) => {
   elements.canvasContainer.style.borderColor = 'transparent';
   const file = e.dataTransfer.files[0];
   if (file && file.type.startsWith('image/')) {
-    processFile(file);
+    // Reuse the logic from handleImageUpload but for dropped file
+    const dummyEvent = { target: { files: [file] } };
+    handleImageUpload(dummyEvent);
   }
 });
 
-function handleImageUpload(e) {
-  const file = e.target.files[0];
-  if (file) processFile(file);
-}
-
 function processFile(file) {
-  toggleLoader(true);
-
-  // Set default filename
-  const date = new Date().toISOString().split('T')[0];
-  if (elements.filenameText) {
-    elements.filenameText.textContent = `Untitled-${date}`;
-  }
-
-  setTimeout(() => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        state.image = img;
-
-        // Update UI to show we have an image
-        updateUIValues(state);
-
-        render(state, elements.canvas, elements.ctx);
-        fitCanvasToScreen(state);
-        commitState();
-
-        toggleLoader(false);
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }, 50);
+  // This function is now redundant as handleImageUpload handles everything
+  // But kept for reference or if needed for drag/drop specific logic
+  // Currently drag/drop calls handleImageUpload directly
 }
 
 function updateSettings(e) {
