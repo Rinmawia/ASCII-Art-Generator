@@ -18,9 +18,19 @@ I have built a premium, browser-based ASCII art configurator.
 - **Contrast**: Increases or decreases the dynamic range.
 - **Brightness**: Adjusts the overall lightness.
 - **Color Mode**: Toggle between classic White-on-Black or Full Color ASCII.
+    - **Custom Tint**: When Color Mode is active, enable this to set custom Highlight and Shadow colors for a duotone effect.
 - **Invert**: Inverts the mapping (Bright areas become dark, Dark areas become bright).
 
-### 3. Export
+### 4. Viewport Controls
+- **Pan**: Click and drag on the canvas to move it around.
+- **Zoom**: Use your mouse wheel or trackpad scroll to zoom in and out.
+- **Adaptive Fit**: The canvas automatically fits to the screen when you upload an image or change the aspect ratio.
+
+### 5. History
+- **Undo**: `Cmd/Ctrl + Z`
+- **Redo**: `Cmd/Ctrl + Shift + Z`
+
+### 6. Export
 - **PNG & JPEG**: Download high-resolution renders of your ASCII art.
 
 ## Technical Implementation

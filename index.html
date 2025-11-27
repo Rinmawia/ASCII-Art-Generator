@@ -22,14 +22,6 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label">Upload Image</label>
-        <div class="file-upload-wrapper">
-          <input type="file" id="imageInput" accept="image/*" class="file-input" />
-          <div class="file-upload-button">Choose File</div>
-        </div>
-      </div>
-
-      <div class="control-group">
         <div class="label-row">
           <label for="resolution" class="control-label">Resolution (Density)</label>
           <span id="resolutionValue" class="value-display">128</span>
@@ -105,6 +97,23 @@
           <input type="checkbox" id="colorMode" class="toggle-input">
           <label for="colorMode" class="toggle-label">Enable Color</label>
         </div>
+
+        <div id="colorControls" class="sub-controls hidden">
+          <div class="toggle-wrapper">
+            <input type="checkbox" id="customTint" class="toggle-input">
+            <label for="customTint" class="toggle-label">Custom Tint</label>
+          </div>
+          <div id="tintPickers" class="hidden">
+            <div class="label-row mt-2">
+              <label class="control-label">Highlights</label>
+              <input type="color" id="highlightColor" value="#ffffff" class="color-input">
+            </div>
+            <div class="label-row mt-2">
+              <label class="control-label">Shadows</label>
+              <input type="color" id="shadowColor" value="#000000" class="color-input">
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="control-group">
@@ -119,17 +128,32 @@
 
       <div class="spacer"></div>
 
-      <div class="control-group">
-        <label class="control-label">Export</label>
-        <div class="button-group">
-          <button id="exportPng" class="btn btn-primary">Export PNG</button>
-          <button id="exportJpeg" class="btn btn-secondary">Export JPEG</button>
-        </div>
+      <div class="sidebar-footer">
+        <p>Vibe coded by RIN.K using Google Gemini 3 Pro</p>
       </div>
     </aside>
 
     <main class="main-content">
+      <nav class="navbar">
+        <div class="nav-left">
+          <button id="resetBtn" class="btn-icon hidden" title="Remove Image & Reset">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+          </button>
+          <div class="nav-brand">ASCII Art</div>
+        </div>
+        <div class="nav-actions hidden" id="navActions">
+          <button id="exportPng" class="btn btn-primary btn-sm">Export PNG</button>
+          <button id="exportJpeg" class="btn btn-secondary btn-sm">Export JPEG</button>
+        </div>
+      </nav>
+
       <div class="canvas-container" id="canvasContainer">
+        <div class="loader hidden" id="loader">
+          <div class="spinner"></div>
+          <p>Processing...</p>
+        </div>
         <div class="upload-placeholder" id="uploadPlaceholder">
           <div class="upload-icon-wrapper">
             <img src="/upload_icon.svg" alt="Upload" class="upload-icon" />
@@ -141,6 +165,8 @@
       </div>
     </main>
   </div>
+  <div id="toast" class="toast hidden">Undo: Contrast</div>
+  <input type="file" id="imageInput" accept="image/*" style="display: none;" />
   <script type="module" src="/src/main.js"></script>
 </body>
 
